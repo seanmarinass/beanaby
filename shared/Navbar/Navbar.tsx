@@ -8,6 +8,7 @@ import { SettingsIcon } from "lucide-react";
 import NavbarNavigationMenu from "./NavbarNavigationMenu";
 import ExitIcon from "../icons/ExitIcon";
 import Link from "next/link";
+import { signOut } from "@/auth";
 
 export default function Navbar() {
   return (
@@ -31,7 +32,13 @@ export default function Navbar() {
           </Button>
 
           <Link href="/login">
-            <Button variant="ghost" size="icon">
+            <Button
+              variant="ghost"
+              size="icon"
+              formAction={async () => {
+                await signOut({ redirectTo: "/" });
+              }}
+            >
               <ExitIcon />
             </Button>
           </Link>
