@@ -8,7 +8,7 @@ interface BillListItemProps {
   amount: number;
   title: string;
   description: string;
-  deadlineDateString: string;
+  dueDateString: string;
   isSelected: boolean;
 
   onClick: () => void;
@@ -19,7 +19,7 @@ export default function BillListItem({
   amount,
   title,
   description,
-  deadlineDateString,
+  dueDateString,
   isSelected,
 
   onClick,
@@ -42,7 +42,7 @@ export default function BillListItem({
 
       <div className="flex flex-col">
         <CardDescription>{description}</CardDescription>
-        <CardDescription>{deadlineDateString}</CardDescription>
+        <CardDescription>{dueDateString}</CardDescription>
       </div>
     </Card>
   );

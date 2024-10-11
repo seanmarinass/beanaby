@@ -1,6 +1,5 @@
 "use client";
 
-import { FAKE_BILL_DATA } from "@/components/bill/fake-bill-data";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,11 +11,16 @@ import { BillDto } from "@/lib/dtos";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useState, useEffect } from "react";
 
-export default function BillsOverviewSection() {
-  const { billList, setSelectedBill, selectedBill } = useBillsProvider();
+interface BillsOverviewSectionProps {
+  billList: BillDto[];
+}
+
+export default function BillsOverviewSection({
+  billList,
+}: BillsOverviewSectionProps) {
+  const { setSelectedBill, selectedBill } = useBillsProvider();
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchedBillList, setSearchedBillList] =
-    useState<BillDto[]>(FAKE_BILL_DATA);
+  const [searchedBillList, setSearchedBillList] = useState<BillDto[]>(billList);
 
   const handleBillSelect = (bill: BillDto) => {
     setSelectedBill(bill);
@@ -27,9 +31,9 @@ export default function BillsOverviewSection() {
     setSearchTerm(searchValue);
 
     if (searchValue === "") {
-      setSearchedBillList(FAKE_BILL_DATA);
+      setSearchedBillList(billList);
     } else {
-      const filteredBills = FAKE_BILL_DATA.filter((bill) =>
+      const filteredBills = billList.filter((bill) =>
         bill.title.toLowerCase().includes(searchValue)
       );
       setSearchedBillList(filteredBills);
@@ -83,7 +87,7 @@ export default function BillsOverviewSection() {
                 amount={amount}
                 title={title}
                 description={description}
-                deadlineDateString={dueDateString}
+                dueDateString={dueDateString}
                 isSelected={isSelected}
                 onClick={() => handleBillSelect(data)}
               />

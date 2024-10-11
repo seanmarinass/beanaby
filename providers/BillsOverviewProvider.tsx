@@ -3,7 +3,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { ProviderProps } from "./utils";
 import { BillDto } from "@/lib/dtos";
-import { FAKE_BILL_DATA } from "@/components/bill/fake-bill-data";
 
 export const BillsOverviewProviderContext = createContext<{
   billList: BillDto[] | null;
@@ -32,7 +31,7 @@ export function useBillsProvider() {
 }
 
 export default function BillsOverviewProvider({ children }: ProviderProps) {
-  const [billList, setBillList] = useState<BillDto[] | null>(FAKE_BILL_DATA);
+  const [billList, setBillList] = useState<BillDto[] | null>(null);
   const [selectedBill, setSelectedBill] = useState<BillDto | null>(null);
 
   return (
