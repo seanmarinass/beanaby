@@ -1,6 +1,12 @@
 import ContractCard from "@/components/contract/ContractCard";
 import { FAKE_CONTRACT_DATA } from "@/components/contract/fake-contract-data";
-import { Card } from "@/components/ui/card";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardTitle,
+} from "@/components/ui/card";
 // import { Card } from "@/components/ui/card";
 
 export default function ActiveContractsSection() {
@@ -9,7 +15,11 @@ export default function ActiveContractsSection() {
       <h1 className="font-bold text-xl">Your Active Contracts</h1>
 
       <Card className="flex flex-col p-[1.5rem] gap-[0.5rem] h-full">
-        {FAKE_CONTRACT_DATA.map((contract, index) => {
+        <CardContent className="flex flex-col h-full w-full justify-center align-middle items-center">
+          <CardTitle>Section in development</CardTitle>
+          <CardDescription>Will be deployed in next patch</CardDescription>
+        </CardContent>
+        {/* {FAKE_CONTRACT_DATA.map((contract, index) => {
           const key = `${contract.contractName}-${index}}`;
 
           return (
@@ -25,7 +35,7 @@ export default function ActiveContractsSection() {
               contractType={contract.contractType}
             />
           );
-        })}
+        })} */}
       </Card>
     </section>
   );
