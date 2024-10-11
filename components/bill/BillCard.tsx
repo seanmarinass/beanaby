@@ -7,7 +7,7 @@ export interface BillCardProps {
   title: string;
   description: string;
   amount: number;
-  deadlineDateString: string;
+  dueDateString: string;
 
   billType: string;
   status: BillStatus;
@@ -17,7 +17,7 @@ export default function BillCard({
   title,
   description,
   amount,
-  deadlineDateString,
+  dueDateString,
   billType,
   status,
 }: BillCardProps) {
@@ -41,7 +41,7 @@ export default function BillCard({
         </CardTitle>
         <CardDescription className="flex justify-between items-center">
           <span>{description}</span>
-          <span>{deadlineDateString}</span>
+          <span>{dueDateString}</span>
         </CardDescription>
       </div>
     </Card>
