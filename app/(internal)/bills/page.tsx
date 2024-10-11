@@ -1,4 +1,4 @@
-import { useBills } from "@/hooks/useBills";
+import { useBills } from "@/actions/useBills";
 import BillDetailsSection from "./BillDetailsSection";
 import BillsOverviewSection from "./BillsOverviewSection";
 import { BillDto } from "@/lib/dtos";

@@ -8,9 +8,14 @@ import { SettingsIcon } from "lucide-react";
 import NavbarNavigationMenu from "./NavbarNavigationMenu";
 import ExitIcon from "../icons/ExitIcon";
 import Link from "next/link";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { AvatarFallback } from "@radix-ui/react-avatar";
+import { useSession } from "next-auth/react";
 import { signOut } from "@/auth";
 
 export default function Navbar() {
+  const { data } = useSession();
+
   return (
     <section className="w-full">
       <Card className="flex justify-between p-[1rem] items-center">
@@ -24,7 +29,12 @@ export default function Navbar() {
 
         <div className="flex gap-[1rem]">
           <Button variant="ghost" size="icon">
-            <ProfileIcon />
+            <Avatar>
+              <AvatarImage src={data?.user?.image!} />
+              <AvatarFallback>
+                <ProfileIcon />
+              </AvatarFallback>
+            </Avatar>
           </Button>
 
           <Button variant="ghost" size="icon">
@@ -32,13 +42,7 @@ export default function Navbar() {
           </Button>
 
           <Link href="/login">
-            <Button
-              variant="ghost"
-              size="icon"
-              formAction={async () => {
-                await signOut({ redirectTo: "/" });
-              }}
-            >
+            <Button variant="ghost" size="icon" onClick={() => signOut()}>
               <ExitIcon />
             </Button>
           </Link>

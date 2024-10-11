@@ -1,7 +1,7 @@
 import BillCard from "@/components/bill/BillCard";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Card } from "@/components/ui/card";
-import { useBills } from "@/hooks/useBills";
+import { useBills } from "@/actions/useBills";
 
 export default async function MonthlyBillsSection() {
   const billList = await useBills();
