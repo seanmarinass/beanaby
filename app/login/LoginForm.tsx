@@ -17,11 +17,6 @@ export default function LoginForm() {
     await signIn("google", { redirectTo: "/dashboard" });
   }
 
-  async function handleManualLogin() {
-    "use server";
-    await signIn();
-  }
-
   return (
     <Card className="p-[1rem] w-fit">
       <CardHeader className="text-center">
@@ -52,9 +47,7 @@ export default function LoginForm() {
 
           <div className="flex flex-col gap-[0.5rem]">
             <Link href="/dashboard">
-              <Button className="w-full" formAction={handleManualLogin}>
-                Login
-              </Button>
+              <Button className="w-full">Login</Button>
             </Link>
 
             <Link href="" className="text-sm">

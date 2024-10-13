@@ -30,9 +30,7 @@ model User {
   billIds     String[] @db.ObjectId
   contractIds String[]
   createdAt   String
-  email       String
-  firstName   String
-  lastName    String
+  email       String   @unique
   updatedAt   String
   username    String
 
