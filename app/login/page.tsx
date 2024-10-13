@@ -9,7 +9,6 @@ export default async function LoginPage() {
   return (
     <section className="flex min-h-screen w-full justify-center align-middle items-center">
       <LoginForm />
-      <div>{JSON.stringify(session)}</div>
     </section>
   );
 }

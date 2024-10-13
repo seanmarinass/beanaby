@@ -8,14 +8,18 @@ export default async function BillsPage() {
   const billList: BillDto[] = await useBills();
 
   return (
-    <section className="flex flex-grow h-full w-full gap-[1rem] items-center">
-      <FadeIn className="flex w-1/3 h-full">
+    <FadeIn
+      className="flex flex-grow h-full w-full gap-[1rem] items-center"
+      tagKey="section"
+      delay={0.3}
+    >
+      <div className="flex w-1/3 h-full">
         <BillsOverviewSection billList={billList} />
-      </FadeIn>
+      </div>
 
-      <FadeIn className="flex w-2/3 h-full">
+      <div className="flex w-2/3 h-full">
         <BillDetailsSection />
-      </FadeIn>
-    </section>
+      </div>
+    </FadeIn>
   );
 }

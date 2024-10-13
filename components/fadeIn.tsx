@@ -1,12 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import React from "react";
 
 export interface FadeInProps {
   children: React.ReactNode;
   className?: string;
   duration?: number;
   delay?: number;
+  tagKey?: keyof React.JSX.IntrinsicElements;
 }
 
 export default function FadeIn({
@@ -14,9 +16,11 @@ export default function FadeIn({
   className = "",
   duration = 0.5,
   delay = 0,
+  tagKey = "div",
 }: FadeInProps) {
+  const MotionComponent = motion.create(tagKey);
   return (
-    <motion.div
+    <MotionComponent
       className={className}
       initial={{ opacity: 0 }}
       animate={{
@@ -29,6 +33,6 @@ export default function FadeIn({
       }}
     >
       {children}
-    </motion.div>
+    </MotionComponent>
   );
 }

@@ -13,7 +13,7 @@ export default async function InternalLayout({
       <NavbarProvider>
         <BillsOverviewProvider>
           <body
-            className={`antialiased w-full min-h-screen p-[1rem] flex flex-col gap-[1rem]`}
+            className={`antialiased w-full min-h-screen p-[1rem] flex flex-col`}
           >
             <Navbar />
             {children}

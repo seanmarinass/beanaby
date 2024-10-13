@@ -27,7 +27,7 @@ export default function BillListItem({
   return (
     <Card
       className={clsx(
-        "flex flex-col p-[1rem] rounded-none gap-[0.5rem]",
+        "flex flex-col p-[1rem] rounded-none gap-[0.5rem] shadow-none",
         { "hover:opacity-50": !isSelected },
         { "bg-black text-white": isSelected }
       )}

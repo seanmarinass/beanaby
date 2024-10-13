@@ -12,12 +12,13 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { AvatarFallback } from "@radix-ui/react-avatar";
 import { signOut, useSession } from "next-auth/react";
 import { ROOT } from "@/lib/auth.routes";
+import FadeIn from "@/components/fadeIn";
 
 export default function Navbar() {
   const { data } = useSession();
 
   return (
-    <section className="w-full">
+    <FadeIn className="w-full mb-[1rem]" delay={0.2} tagKey="nav">
       <Card className="flex justify-between p-[1rem] items-center">
         <div className="flex justify-center align-middle items-center gap-[1rem]">
           <CardTitle>
@@ -41,7 +42,7 @@ export default function Navbar() {
             <SettingsIcon />
           </Button>
 
-          <Link href="/login">
+          <Link href="/api/auth/signout">
             <Button
               variant="ghost"
               size="icon"
@@ -52,6 +53,6 @@ export default function Navbar() {
           </Link>
         </div>
       </Card>
-    </section>
+    </FadeIn>
   );
 }

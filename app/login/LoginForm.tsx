@@ -25,7 +25,7 @@ export default function LoginForm() {
   return (
     <Card className="p-[1rem] w-fit">
       <CardHeader className="text-center">
-        <CardTitle className="text-2xl">Sign in to BEANABY</CardTitle>
+        <CardTitle className="text-2xl">Sign in to Beanaby</CardTitle>
         <CardDescription>
           Please enter your log in details to get started
         </CardDescription>
