@@ -1,16 +1,32 @@
 import { transformBillDocumentToDto } from "@/lib/document-to-dto.transformer";
 import { BillDto } from "@/lib/dtos";
 import prisma from "@/prisma/db";
-import { Bill } from "@prisma/client";
 
-export async function useBills(): Promise<BillDto[]> {
+export async function userBillList(email: string): Promise<BillDto[]> {
   try {
-    const billDocuments: Bill[] = await prisma.bill.findMany();
-    const billDtos: BillDto[] = billDocuments.map((document) =>
-      transformBillDocumentToDto(document)
-    );
+    const user = await prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
 
-    return billDtos;
+    if (user) {
+      const billDocuments = await prisma.bill.findMany({
+        where: {
+          id: {
+            in: user.billIds,
+          },
+        },
+      });
+
+      const billDtos: BillDto[] = billDocuments.map((document) =>
+        transformBillDocumentToDto(document)
+      );
+
+      return billDtos;
+    }
+
+    throw new Error("User does not exist");
   } catch (error) {
     throw error;
   }

@@ -1,11 +1,14 @@
 import BillCard from "@/components/bill/BillCard";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Card } from "@/components/ui/card";
-import { useBills } from "@/actions/useBills";
+import { userBillList } from "@/actions/useBills";
 import FadeIn from "@/components/fadeIn";
+import { auth } from "@/auth";
 
 export default async function MonthlyBillsSection() {
-  const billList = await useBills();
+  const session = await auth();
+
+  const billList = await userBillList(session?.user?.email!);
 
   return (
     <section className="flex flex-col w-full gap-[0.5rem] h-full">
