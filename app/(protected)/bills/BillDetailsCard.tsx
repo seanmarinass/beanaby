@@ -38,12 +38,16 @@ export function BillDetailsCard({ selectedBill }: BillDetailsCardProps) {
 
         <Card className="flex gap-[2rem] justify-between align-middle items-center rounded-none p-[0.5rem] px-[1.5rem]">
           <span>Recipient Bank:</span>
-          <span className="text-wrap font-bold">BDO</span>
+          <span className="text-wrap font-bold">
+            {selectedBill.recipientBankName}
+          </span>
         </Card>
 
         <Card className="flex gap-[2rem] justify-between align-middle items-center rounded-none p-[0.5rem] px-[1.5rem]">
           <span>Recipient Bank Account No:</span>
-          <span className="text-wrap font-bold">123-456-789</span>
+          <span className="text-wrap font-bold">
+            {selectedBill.recipientBankAccountNo}
+          </span>
         </Card>
 
         <Card className="flex gap-[2rem] justify-between align-middle items-center rounded-none p-[0.5rem] px-[1.5rem]">

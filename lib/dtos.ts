@@ -6,6 +6,9 @@ export interface BillDto {
   amount: number;
   recipientName: string;
   recipientAddress: string;
+  recipientBankName: string;
+  recipientBankAccountNo: string;
+
   billType: string;
   status: BillStatus;
 

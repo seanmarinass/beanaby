@@ -10,6 +10,8 @@ export function transformBillDocumentToDto(document: Bill): BillDto {
     amount: document.amount,
     recipientName: document.recipientName,
     recipientAddress: document.recipientAddress,
+    recipientBankAccountNo: document.recipientBankAccountNo,
+    recipientBankName: document.recipientBankName,
     billType: document.billType,
     status: document.status as BillStatus,
     dueDateString: formatDateString(document.dueDate),
