@@ -3,13 +3,13 @@
 import React, { createContext, useContext, useState } from "react";
 import { ProviderProps } from "./utils";
 
-export type NavbarContextType = "Dashboard" | "Contracts" | "Bills";
+export type NavbarContextType = "dashboard" | "contracts" | "bills";
 
 export const NavbarContext = createContext<{
   currentPage: NavbarContextType;
   setCurrentPage: (page: NavbarContextType) => void;
 }>({
-  currentPage: "Dashboard",
+  currentPage: "dashboard",
   setCurrentPage: () => {},
 });
 
@@ -25,7 +25,7 @@ export function useNavbar() {
 
 export default function NavbarProvider({ children }: ProviderProps) {
   const [currentPage, setCurrentPage] =
-    useState<NavbarContextType>("Dashboard");
+    useState<NavbarContextType>("dashboard");
 
   return (
     <NavbarContext.Provider

@@ -1,17 +1,18 @@
+import FadeIn from "@/components/fadeIn";
 import ActiveContractsSection from "./ActiveContractsSection";
 import MonthlyBillsSection from "./MonthlyBillsSection";
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
   return (
     <section className="flex flex-col w-full gap-[1rem]">
       <div className="flex gap-[1rem]">
-        <div className="w-[50%]">
+        <FadeIn className="w-[50%]" delay={0.1}>
           <ActiveContractsSection />
-        </div>
+        </FadeIn>
 
-        <div className="w-[50%]">
+        <FadeIn className="w-[50%]" delay={0.2}>
           <MonthlyBillsSection />
-        </div>
+        </FadeIn>
       </div>
     </section>
   );

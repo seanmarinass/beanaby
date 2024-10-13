@@ -2,16 +2,20 @@
 
 import {
   NavigationMenu,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuItem,
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
 import { NavbarContextType, useNavbar } from "@/providers/NavbarProvider";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function NavbarNavigationMenu() {
+  const pathName = usePathname();
+  const formattedPathName = pathName.substring(1) as NavbarContextType;
+
   const { currentPage, setCurrentPage } = useNavbar();
+  setCurrentPage(formattedPathName);
 
   const handleButtonClick = (page: NavbarContextType) => {
     setCurrentPage(page);
@@ -21,42 +25,37 @@ export default function NavbarNavigationMenu() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          {/* <NavigationMenuLink href="dashboard"> */}
           <Link href="/dashboard" passHref>
             <Button
-              variant={currentPage === "Dashboard" ? "default" : "ghost"}
-              onClick={() => handleButtonClick("Dashboard")}
+              variant={currentPage === "dashboard" ? "default" : "ghost"}
+              onClick={() => handleButtonClick("dashboard")}
             >
               Dashboard
             </Button>
           </Link>
-          {/* </NavigationMenuLink> */}
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          {/* <NavigationMenuLink href="contacts"> */}
-          <Link href="/contracts" passHref>
-            <Button
-              variant={currentPage === "Contracts" ? "default" : "ghost"}
-              onClick={() => handleButtonClick("Contracts")}
-            >
-              Contracts
-            </Button>
-          </Link>
-          {/* </NavigationMenuLink> */}
-        </NavigationMenuItem>
-
-        <NavigationMenuItem>
-          {/* <NavigationMenuLink> */}
           <Link href="/bills" passHref>
             <Button
-              variant={currentPage === "Bills" ? "default" : "ghost"}
-              onClick={() => handleButtonClick("Bills")}
+              variant={currentPage === "bills" ? "default" : "ghost"}
+              onClick={() => handleButtonClick("bills")}
             >
               Bills
             </Button>
-            {/* </NavigationMenuLink> */}
           </Link>
+        </NavigationMenuItem>
+
+        <NavigationMenuItem>
+          {/* <Link href="/contracts" passHref> */}
+          <Button
+            disabled={true}
+            variant={currentPage === "contracts" ? "default" : "ghost"}
+            // onClick={() => handleButtonClick("Contracts")}
+          >
+            Contracts (Coming Soon)
+          </Button>
+          {/* </Link> */}
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>

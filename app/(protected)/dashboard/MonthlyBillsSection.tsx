@@ -2,6 +2,7 @@ import BillCard from "@/components/bill/BillCard";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Card } from "@/components/ui/card";
 import { useBills } from "@/actions/useBills";
+import FadeIn from "@/components/fadeIn";
 
 export default async function MonthlyBillsSection() {
   const billList = await useBills();
@@ -23,15 +24,17 @@ export default async function MonthlyBillsSection() {
             const key = `${bill.title}-${index}}`;
 
             return (
-              <BillCard
-                key={key}
-                title={bill.title}
-                description={bill.description}
-                amount={bill.amount}
-                dueDateString={bill.dueDateString}
-                billType={bill.billType}
-                status={bill.status}
-              />
+              <FadeIn key={index} delay={index * 0.1} duration={0.8}>
+                <BillCard
+                  key={key}
+                  title={bill.title}
+                  description={bill.description}
+                  amount={bill.amount}
+                  dueDateString={bill.dueDateString}
+                  billType={bill.billType}
+                  status={bill.status}
+                />
+              </FadeIn>
             );
           })
         )}
