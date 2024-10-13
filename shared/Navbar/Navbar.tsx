@@ -10,8 +10,8 @@ import ExitIcon from "../icons/ExitIcon";
 import Link from "next/link";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { AvatarFallback } from "@radix-ui/react-avatar";
-import { useSession } from "next-auth/react";
-import { signOut } from "@/auth";
+import { signOut, useSession } from "next-auth/react";
+import { ROOT } from "@/lib/auth.routes";
 
 export default function Navbar() {
   const { data } = useSession();
@@ -30,7 +30,7 @@ export default function Navbar() {
         <div className="flex gap-[1rem]">
           <Button variant="ghost" size="icon">
             <Avatar>
-              <AvatarImage src={data?.user?.image!} />
+              <AvatarImage src={data?.user?.image ?? ""} />
               <AvatarFallback>
                 <ProfileIcon />
               </AvatarFallback>
@@ -42,7 +42,11 @@ export default function Navbar() {
           </Button>
 
           <Link href="/login">
-            <Button variant="ghost" size="icon" onClick={() => signOut()}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => signOut({ redirectTo: ROOT })}
+            >
               <ExitIcon />
             </Button>
           </Link>
