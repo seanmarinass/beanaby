@@ -2,13 +2,7 @@
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { useBillsProvider } from "@/providers/BillsOverviewProvider";
 import EditIcon from "@/shared/icons/EditIcon";
 import { BillDetailsCard } from "./BillDetailsCard";

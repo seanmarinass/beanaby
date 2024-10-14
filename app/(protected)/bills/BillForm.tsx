@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { BillStatus } from "@/shared/constants";
 import { z } from "zod";
 import {
@@ -16,8 +14,6 @@ import { Alert } from "@/components/ui/alert";
 
 export default function BillForm() {
   const { data } = useSession();
-
-  if (!data?.user?.email) return <Alert>{JSON.stringify(data)}</Alert>;
 
   const initialFormData: BillFormSchema = {
     title: "",
@@ -38,6 +34,7 @@ export default function BillForm() {
   const [validationErrors, setValidationErrors] = useState<
     Record<string, string | undefined>
   >({});
+  if (!data?.user?.email) return <Alert>{JSON.stringify(data)}</Alert>;
 
   const handleChange = ({
     target: { name, value },
@@ -56,7 +53,8 @@ export default function BillForm() {
     try {
       billFormSchema.parse(formData);
 
-      const response = await fetch(`/api/bills/${data.user?.email!}/create`, {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+      const response = await fetch(`/api/bills/create/${data.user?.email!}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
