@@ -13,11 +13,8 @@ import {
   DialogContent,
   DialogDescription,
   DialogTitle,
-  DialogFooter,
-  DialogClose,
+
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import BillForm, { BillFormType } from "./BillForm";
 
 export default function BillDetailsSection() {
@@ -43,7 +40,7 @@ export default function BillDetailsSection() {
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Edit Details</DialogTitle>
-              <DialogDescription>Click SavE when done</DialogDescription>
+              <DialogDescription>Click Save when done</DialogDescription>
             </DialogHeader>
 
             <BillForm formType={BillFormType.UPDATE} />

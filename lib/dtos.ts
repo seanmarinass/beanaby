@@ -1,6 +1,7 @@
 import { BillStatus } from "@/shared/constants";
 
 export interface BillDto {
+  _id: string
   title: string;
   description: string;
   amount: number;
