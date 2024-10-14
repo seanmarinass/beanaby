@@ -1,93 +1,38 @@
 "use client";
 
-import { useState } from "react";
-import { BillStatus } from "@/shared/constants";
-import { z } from "zod";
-import {
-  BillFormSchema,
-  billFormSchema,
-} from "@/app/api/bills/schemas/bill-form.schema";
-import { Button } from "@/components/ui/button";
 import InputField from "@/components/ui/input-field";
-import { useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
+import { useSession } from "next-auth/react";
+import { useBillForm } from "./hooks/useBillForm";
+import { useSubmitBill } from "./hooks/useSubmitBill";
 
 export default function BillForm() {
   const { data } = useSession();
-
-  const initialFormData: BillFormSchema = {
-    title: "",
-    amount: 0,
-    description: "",
-    billType: "",
-    status: BillStatus.DUE,
-    dueDate: "",
-    recipientName: "",
-    recipientAddress: "",
-    recipientBankName: "",
-    recipientBankAccountNo: "",
-  };
-
-  const [formData, setFormData] = useState<BillFormSchema>(initialFormData);
-  const [error, setError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string>("");
-  const [validationErrors, setValidationErrors] = useState<
-    Record<string, string | undefined>
-  >({});
-  if (!data?.user?.email) return <Alert>{JSON.stringify(data)}</Alert>;
-
-  const handleChange = ({
-    target: { name, value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = name === "amount" ? Number(value) : value;
-    setFormData((prev) => ({ ...prev, [name]: newValue }));
-    setValidationErrors((prev) => ({ ...prev, [name]: undefined }));
-  };
+  const {
+    formData,
+    handleChange,
+    error,
+    successMessage,
+    validationErrors,
+    resetForm,
+    validateForm,
+  } = useBillForm();
+  const { submitBill } = useSubmitBill(formData);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(null);
-    setSuccessMessage("");
-    setValidationErrors({});
 
-    try {
-      billFormSchema.parse(formData);
+    const isFormValid = validateForm();
+    if (!isFormValid) return;
 
-      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-      const response = await fetch(`/api/bills/create/${data.user?.email!}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "An error occurred");
-      }
-
-      const newBill = await response.json();
-      setSuccessMessage(`Bill created successfully with ID: ${newBill.id}`);
-      setFormData(initialFormData);
-    } catch (err) {
-      if (err instanceof z.ZodError) {
-        const fieldErrors = err.errors.reduce((acc, error) => {
-          const field = error.path[0];
-          if (field) {
-            acc[field] = error.message;
-          }
-          return acc;
-        }, {} as Record<string, string | undefined>);
-        setValidationErrors(fieldErrors);
-      } else if (err instanceof Error) {
-        console.log(err.message);
-        setError(err.message);
-      } else {
-        setError("An unknown error occurred");
-      }
+    const isSuccess = await submitBill();
+    if (isSuccess) {
+      resetForm();
     }
   };
+
+  if (!data?.user?.email) return <Alert>{JSON.stringify(data)}</Alert>;
 
   return (
     <form className="flex flex-col gap-[1rem] w-full" onSubmit={handleSubmit}>
