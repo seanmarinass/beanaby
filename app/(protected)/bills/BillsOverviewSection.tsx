@@ -19,7 +19,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import BillForm from "./BillForm";
+import BillForm, { BillFormType } from "./BillForm";
 
 interface BillsOverviewSectionProps {
   billList: BillDto[];
@@ -88,7 +88,7 @@ export default function BillsOverviewSection({
                 </DialogDescription>
               </DialogHeader>
 
-              <BillForm />
+              <BillForm formType={BillFormType.CREATE} />
             </DialogContent>
           </Dialog>
         </div>

@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import BillForm, { BillFormType } from "./BillForm";
 
 export default function BillDetailsSection() {
   const { selectedBill } = useBillsProvider();
@@ -42,53 +43,10 @@ export default function BillDetailsSection() {
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Edit Details</DialogTitle>
-              <DialogDescription>
-                Click Save Changes when done
-              </DialogDescription>
+              <DialogDescription>Click SavE when done</DialogDescription>
             </DialogHeader>
 
-            <div className="flex flex-col gap-[1rem] w-full">
-              <div className="flex flex-col gap-[0.25rem] ">
-                <Label className="font-bold">Bill Title</Label>
-                <Input placeholder={selectedBill.title} />
-              </div>
-
-              <div className="flex flex-col gap-[0.25rem] ">
-                <Label className="font-bold">Due Date</Label>
-                <Input placeholder={selectedBill.dueDateString} />
-              </div>
-
-              <div className="flex flex-col gap-[0.25rem] ">
-                <Label className="font-bold">Amount Due</Label>
-                <Input placeholder={selectedBill.amount.toString()} />
-              </div>
-
-              <div className="flex flex-col gap-[0.25rem] ">
-                <Label className="font-bold">Recipient Name</Label>
-                <Input placeholder={selectedBill.recipientName} />
-              </div>
-
-              <div className="flex flex-col gap-[0.25rem] ">
-                <Label className="font-bold">Recipient Address</Label>
-                <Input placeholder={selectedBill.recipientAddress} />
-              </div>
-
-              <div className="flex gap-[1rem] w-full">
-                <div className="flex flex-col gap-[0.25rem] ">
-                  <Label className="font-bold">Recipient Bank</Label>
-                  <Input placeholder={selectedBill.recipientBankName} />
-                </div>
-                <div className="flex flex-col gap-[0.25rem] flex-grow">
-                  <Label className="font-bold">Recipient Bank Account No</Label>
-                  <Input placeholder={selectedBill.recipientBankAccountNo} />
-                </div>
-              </div>
-            </div>
-            <DialogFooter>
-              <DialogClose>
-                <Button>Save Changes</Button>
-              </DialogClose>
-            </DialogFooter>
+            <BillForm formType={BillFormType.UPDATE} />
           </DialogContent>
         </Dialog>
       </CardHeader>

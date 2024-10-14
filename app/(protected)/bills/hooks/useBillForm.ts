@@ -5,19 +5,24 @@ import {
 } from "@/app/api/bills/schemas/bill-form.schema";
 import { BillStatus } from "@/shared/constants";
 import { ZodError } from "zod";
+import { useBillsProvider } from "@/providers/BillsOverviewProvider";
+import { formatToIsoString } from "@/lib/utils";
 
 export const useBillForm = () => {
+  const { selectedBill } = useBillsProvider();
   const initialFormData: BillFormSchema = {
-    title: "",
-    amount: 0,
-    description: "",
-    billType: "",
-    status: BillStatus.DUE,
-    dueDate: "",
-    recipientName: "",
-    recipientAddress: "",
-    recipientBankName: "",
-    recipientBankAccountNo: "",
+    title: selectedBill?.title || "",
+    amount: selectedBill?.amount || 0,
+    description: selectedBill?.description || "",
+    billType: selectedBill?.billType || "",
+    status: selectedBill?.status || BillStatus.DUE,
+    dueDate: selectedBill?.dueDateString
+      ? formatToIsoString(selectedBill.dueDateString)
+      : "",
+    recipientName: selectedBill?.recipientName || "",
+    recipientAddress: selectedBill?.recipientAddress || "",
+    recipientBankName: selectedBill?.recipientBankName || "",
+    recipientBankAccountNo: selectedBill?.recipientBankAccountNo || "",
   };
 
   const [formState, setFormState] = useState<{

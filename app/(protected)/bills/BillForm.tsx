@@ -7,27 +7,40 @@ import { useSession } from "next-auth/react";
 import { useBillForm } from "./hooks/useBillForm";
 import { useSubmitBill } from "./hooks/useSubmitBill";
 
-export default function BillForm() {
+export enum BillFormType {
+  CREATE = "create",
+  UPDATE = "update",
+}
+
+interface BillFormProps {
+  formType: BillFormType;
+}
+
+export default function BillForm({ formType }: BillFormProps) {
   const { data } = useSession();
   const {
     formData,
     handleChange,
-    error,
+    error: formError,
     successMessage,
     validationErrors,
     resetForm,
     validateForm,
   } = useBillForm();
-  const { submitBill } = useSubmitBill(formData);
+  const {
+    createBill,
+    updateBill,
+    error: submitError,
+  } = useSubmitBill(formData);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const isFormValid = validateForm();
-    if (!isFormValid) return;
+    if (!validateForm()) return;
 
-    const isSuccess = await submitBill();
-    if (isSuccess) {
+    const action = formType === BillFormType.CREATE ? createBill : updateBill;
+    const success = await action();
+    if (success) {
       resetForm();
     }
   };
@@ -36,7 +49,9 @@ export default function BillForm() {
 
   return (
     <form className="flex flex-col gap-[1rem] w-full" onSubmit={handleSubmit}>
-      {error && <div className="text-red-500">{error}</div>}
+      {(formError || submitError) && (
+        <div className="text-red-500">{formError || submitError}</div>
+      )}
       {successMessage && <div className="text-green-500">{successMessage}</div>}
 
       <div className="flex gap-[1rem] w-full">
@@ -120,7 +135,7 @@ export default function BillForm() {
       </div>
 
       <Button type="submit" className="mt-4 p-2 bg-blue-500 text-white rounded">
-        Create Bill
+        Save
       </Button>
     </form>
   );

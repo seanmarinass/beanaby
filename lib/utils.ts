@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatDateString(dateString: string): string {
+export function formatToLocaleDateString(dateString: string): string {
   const date = new Date(dateString);
 
   const options: Intl.DateTimeFormatOptions = {
@@ -15,4 +15,14 @@ export function formatDateString(dateString: string): string {
   };
 
   return date.toLocaleDateString("en-US", options).replace(",", "");
+}
+
+export function formatToIsoString(formattedDate: string): string {
+  const parsedDate = new Date(formattedDate);
+
+  if (isNaN(parsedDate.getTime())) {
+    throw new Error("Invalid date format");
+  }
+
+  return parsedDate.toISOString();
 }
