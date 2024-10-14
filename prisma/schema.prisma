@@ -9,17 +9,17 @@ datasource db {
 
 model Bill {
   id                     String @id @default(auto()) @map("_id") @db.ObjectId
+  title                  String
   amount                 Float
-  billType               String
-  createdAt              String
   description            String
+  billType               String
+  status                 String
   dueDate                String
   recipientAddress       String
   recipientName          String
   recipientBankName      String
   recipientBankAccountNo String
-  status                 String
-  title                  String
+  createdAt              String
   updatedAt              String
 
   @@map("bills")

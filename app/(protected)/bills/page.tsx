@@ -1,12 +1,10 @@
-import { userBillList } from "@/actions/useBills";
+import { userBillList } from "@/actions/bill-actions";
 import BillDetailsSection from "./BillDetailsSection";
 import BillsOverviewSection from "./BillsOverviewSection";
 import { BillDto } from "@/lib/dtos";
 import FadeIn from "@/components/fadeIn";
 
 export default async function BillsPage() {
-  // const billList: BillDto[] = await userBillList();
-
   return (
     <FadeIn
       className="flex flex-grow h-full w-full gap-[1rem] items-center"

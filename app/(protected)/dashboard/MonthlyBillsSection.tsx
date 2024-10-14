@@ -1,7 +1,7 @@
 import BillCard from "@/components/bill/BillCard";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Card } from "@/components/ui/card";
-import { userBillList } from "@/actions/useBills";
+import { userBillList } from "@/actions/bill-actions";
 import FadeIn from "@/components/fadeIn";
 import { auth } from "@/auth";
 

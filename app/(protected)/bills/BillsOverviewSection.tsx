@@ -10,6 +10,19 @@ import BillListItem from "./BillListItem";
 import { BillDto } from "@/lib/dtos";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useState, useEffect } from "react";
+import AddIcon from "@/shared/icons/AddIcon";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import BillForm from "./BillForm";
 
 interface BillsOverviewSectionProps {
   billList: BillDto[];
@@ -59,9 +72,28 @@ export default function BillsOverviewSection({
             value={searchTerm}
             onChange={handleSearchChange}
           />
-          <Button variant="outline" size="icon">
+          <Button variant="ghost" size="icon">
             <FilterIcon />
           </Button>
+
+          <Dialog>
+            <DialogTrigger>
+              <Button variant="ghost" size="icon">
+                <AddIcon />
+              </Button>
+            </DialogTrigger>
+
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Bill Details</DialogTitle>
+                <DialogDescription>
+                  Click Save Changes when done
+                </DialogDescription>
+              </DialogHeader>
+
+              <BillForm />
+            </DialogContent>
+          </Dialog>
         </div>
       </CardContent>
 
