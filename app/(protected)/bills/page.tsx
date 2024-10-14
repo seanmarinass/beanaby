@@ -1,9 +1,7 @@
 import { userBillList } from "@/actions/bill-actions";
 import BillDetailsSection from "./BillDetailsSection";
 import BillsOverviewSection from "./BillsOverviewSection";
-import { BillDto } from "@/lib/dtos";
 import FadeIn from "@/components/fadeIn";
-import { useSession } from "next-auth/react";
 import { Alert } from "@/components/ui/alert";
 import { auth } from "@/auth";
 
