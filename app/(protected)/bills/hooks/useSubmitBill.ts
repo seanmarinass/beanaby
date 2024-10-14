@@ -11,10 +11,10 @@ export const useSubmitBill = (formData: BillFormSchema) => {
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string>("");
 
-  const handleResponse = async (
+  async function handleResponse(
     response: Response,
     successMessageText: string
-  ) => {
+  ) {
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.message || "An error occurred");
@@ -22,9 +22,9 @@ export const useSubmitBill = (formData: BillFormSchema) => {
 
     setSuccessMessage(successMessageText);
     return true;
-  };
+  }
 
-  const createBill = async () => {
+  async function createBill() {
     if (!data?.user?.email) {
       throw new Error("User email is not available.");
     }
@@ -43,9 +43,9 @@ export const useSubmitBill = (formData: BillFormSchema) => {
       setError(err.message || "An unknown error occurred");
       return false;
     }
-  };
+  }
 
-  const updateBill = async () => {
+  async function updateBill() {
     if (!selectedBill) {
       throw new Error("No bill selected");
     }
@@ -66,7 +66,7 @@ export const useSubmitBill = (formData: BillFormSchema) => {
       setError(err.message || "An unknown error occurred");
       return false;
     }
-  };
+  }
 
   return { error, successMessage, createBill, updateBill };
 };

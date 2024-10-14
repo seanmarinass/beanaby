@@ -5,6 +5,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { BillDto } from "@/lib/dtos";
+import { formatToLocaleDateString } from "@/lib/utils";
 
 interface BillDetailsCardProps {
   selectedBill: BillDto;
@@ -52,7 +53,9 @@ export function BillDetailsCard({ selectedBill }: BillDetailsCardProps) {
 
         <Card className="flex gap-[2rem] justify-between align-middle items-center rounded-none p-[0.5rem] px-[1.5rem]">
           <span>Date Created:</span>
-          <span className="font-bold">{selectedBill.createdDateString}</span>
+          <span className="font-bold">
+            {formatToLocaleDateString(selectedBill.createdDateString)}
+          </span>
         </Card>
       </div>
 

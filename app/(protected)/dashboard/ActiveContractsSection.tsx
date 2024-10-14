@@ -1,6 +1,3 @@
-import ContractCard from "@/components/contract/ContractCard";
-import { FAKE_CONTRACT_DATA } from "@/components/contract/fake-contract-data";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
   Card,
   CardContent,
