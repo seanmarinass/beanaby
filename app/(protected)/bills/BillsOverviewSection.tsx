@@ -13,15 +13,12 @@ import { useState, useEffect } from "react";
 import AddIcon from "@/shared/icons/AddIcon";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
 import BillForm from "./BillForm";
 
 interface BillsOverviewSectionProps {

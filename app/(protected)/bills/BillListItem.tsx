@@ -29,7 +29,7 @@ export default function BillListItem({
       className={clsx(
         "flex flex-col p-[1rem] rounded-none gap-[0.5rem] shadow-none",
         { "hover:opacity-50": !isSelected },
-        { "bg-black text-white": isSelected }
+        { "bg-primary text-white": isSelected }
       )}
       onClick={onClick}
     >
@@ -41,8 +41,12 @@ export default function BillListItem({
       <CardTitle>{title}</CardTitle>
 
       <div className="flex flex-col">
-        <CardDescription>{description}</CardDescription>
-        <CardDescription>{dueDateString}</CardDescription>
+        <CardDescription className={clsx({ "text-white": isSelected })}>
+          {description}
+        </CardDescription>
+        <CardDescription className={clsx({ "text-white": isSelected })}>
+          {dueDateString}
+        </CardDescription>
       </div>
     </Card>
   );
