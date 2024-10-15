@@ -3,7 +3,7 @@ import "../globals.css";
 import NavbarProvider from "@/providers/NavbarProvider";
 import Navbar from "@/shared/Navbar/Navbar";
 
-export default async function InternalLayout({
+export default async function ProtectedLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

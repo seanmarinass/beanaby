@@ -6,6 +6,7 @@ import { Alert } from "@/components/ui/alert";
 import { useSession } from "next-auth/react";
 import { useBillForm } from "./hooks/useBillForm";
 import { useSubmitBill } from "./hooks/useSubmitBill";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export enum BillFormType {
   CREATE = "create",
@@ -15,10 +16,10 @@ export enum BillFormType {
 interface BillFormProps {
   formType: BillFormType;
 
-  onSave: () => void;
+  onClose: () => void;
 }
 
-export default function BillForm({ formType, onSave }: BillFormProps) {
+export default function BillForm({ formType, onClose }: BillFormProps) {
   const { data } = useSession();
   const {
     formData,
@@ -29,10 +30,12 @@ export default function BillForm({ formType, onSave }: BillFormProps) {
     resetForm,
     validateForm,
   } = useBillForm();
+
   const {
     createBill,
     updateBill,
     error: submitError,
+    submitIsLoading,
   } = useSubmitBill(formData);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,7 +47,7 @@ export default function BillForm({ formType, onSave }: BillFormProps) {
     const success = await action();
     if (success) {
       resetForm();
-      onSave();
+      onClose();
     }
   };
 
@@ -137,8 +140,8 @@ export default function BillForm({ formType, onSave }: BillFormProps) {
         />
       </div>
 
-      <Button type="submit" className="mt-4 p-2 bg-blue-500 text-white rounded">
-        Save
+      <Button type="submit" className="mt-4 p-[0.5rem] text-white rounded]">
+        {submitIsLoading ? <ClipLoader color="white" /> : <span>Save</span>}
       </Button>
     </form>
   );

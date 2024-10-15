@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export function useBillDetails() {
-  const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(true);
+  const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false);
 
   function toggleDialog() {
     setDialogIsOpen(!dialogIsOpen);

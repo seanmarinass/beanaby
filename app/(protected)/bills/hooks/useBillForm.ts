@@ -10,6 +10,7 @@ import { formatToIsoString } from "@/lib/utils";
 
 export const useBillForm = () => {
   const { selectedBill } = useBillsProvider();
+
   const initialFormData: BillFormSchema = {
     title: selectedBill?.title || "",
     amount: selectedBill?.amount || 0,

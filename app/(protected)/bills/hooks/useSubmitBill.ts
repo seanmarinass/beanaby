@@ -8,6 +8,7 @@ export const useSubmitBill = (formData: BillFormSchema) => {
   const { data } = useSession();
   const { selectedBill } = useBillsProvider();
 
+  const [submitIsLoading, setSubmitIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string>("");
 
@@ -25,6 +26,8 @@ export const useSubmitBill = (formData: BillFormSchema) => {
   }
 
   async function createBill() {
+    setSubmitIsLoading(true);
+
     if (!data?.user?.email) {
       throw new Error("User email is not available.");
     }
@@ -42,10 +45,14 @@ export const useSubmitBill = (formData: BillFormSchema) => {
     } catch (err: any) {
       setError(err.message || "An unknown error occurred");
       return false;
+    } finally {
+      setSubmitIsLoading(false);
     }
   }
 
   async function updateBill() {
+    setSubmitIsLoading(true);
+
     if (!selectedBill) {
       throw new Error("No bill selected");
     }
@@ -65,8 +72,16 @@ export const useSubmitBill = (formData: BillFormSchema) => {
     } catch (err: any) {
       setError(err.message || "An unknown error occurred");
       return false;
+    } finally {
+      setSubmitIsLoading(false);
     }
   }
 
-  return { error, successMessage, createBill, updateBill };
+  return {
+    error,
+    successMessage,
+    createBill,
+    updateBill,
+    submitIsLoading,
+  };
 };

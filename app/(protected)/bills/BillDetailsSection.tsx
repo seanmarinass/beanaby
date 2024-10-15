@@ -44,7 +44,7 @@ export default function BillDetailsSection() {
               <DialogDescription>Click Save when done</DialogDescription>
             </DialogHeader>
 
-            <BillForm formType={BillFormType.UPDATE} onSave={toggleDialog} />
+            <BillForm formType={BillFormType.UPDATE} onClose={toggleDialog} />
           </DialogContent>
         </Dialog>
       </CardHeader>

@@ -69,7 +69,7 @@ export default function BillsOverviewSection({
                 </DialogDescription>
               </DialogHeader>
 
-              <BillForm formType={BillFormType.CREATE} onSave={toggleDialog} />
+              <BillForm formType={BillFormType.CREATE} onClose={toggleDialog} />
             </DialogContent>
           </Dialog>
         </div>
