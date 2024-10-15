@@ -14,9 +14,11 @@ export enum BillFormType {
 
 interface BillFormProps {
   formType: BillFormType;
+
+  onSave: () => void;
 }
 
-export default function BillForm({ formType }: BillFormProps) {
+export default function BillForm({ formType, onSave }: BillFormProps) {
   const { data } = useSession();
   const {
     formData,
@@ -42,6 +44,7 @@ export default function BillForm({ formType }: BillFormProps) {
     const success = await action();
     if (success) {
       resetForm();
+      onSave();
     }
   };
 

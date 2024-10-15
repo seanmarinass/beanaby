@@ -13,12 +13,13 @@ import {
   DialogContent,
   DialogDescription,
   DialogTitle,
-
 } from "@/components/ui/dialog";
 import BillForm, { BillFormType } from "./BillForm";
+import { useBillDetails } from "./hooks/useBillDetails";
 
 export default function BillDetailsSection() {
   const { selectedBill } = useBillsProvider();
+  const { dialogIsOpen, toggleDialog } = useBillDetails();
 
   return selectedBill === null ? (
     <Alert>
@@ -30,7 +31,7 @@ export default function BillDetailsSection() {
       <CardHeader className="flex flex-row justify-between items-center align-middle">
         <CardTitle className="text-2xl">{selectedBill.title}</CardTitle>
 
-        <Dialog>
+        <Dialog open={dialogIsOpen} onOpenChange={toggleDialog}>
           <DialogTrigger>
             <Button size="icon" variant="ghost" className="m-0">
               <EditIcon />
@@ -43,7 +44,7 @@ export default function BillDetailsSection() {
               <DialogDescription>Click Save when done</DialogDescription>
             </DialogHeader>
 
-            <BillForm formType={BillFormType.UPDATE} />
+            <BillForm formType={BillFormType.UPDATE} onSave={toggleDialog} />
           </DialogContent>
         </Dialog>
       </CardHeader>

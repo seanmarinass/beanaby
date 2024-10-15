@@ -4,12 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useBillsProvider } from "@/providers/BillsOverviewProvider";
 import FilterIcon from "@/shared/icons/FilterIcon";
 import BillListItem from "./BillListItem";
 import { BillDto } from "@/lib/dtos";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useState, useEffect } from "react";
 import AddIcon from "@/shared/icons/AddIcon";
 import {
   Dialog,
@@ -20,6 +18,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import BillForm, { BillFormType } from "./BillForm";
+import { useBillsOverview } from "./hooks/useBillsOverview";
 
 interface BillsOverviewSectionProps {
   billList: BillDto[];
@@ -28,33 +27,15 @@ interface BillsOverviewSectionProps {
 export default function BillsOverviewSection({
   billList,
 }: BillsOverviewSectionProps) {
-  const { setSelectedBill, selectedBill } = useBillsProvider();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchedBillList, setSearchedBillList] = useState<BillDto[]>(billList);
-
-  const handleBillSelect = (bill: BillDto) => {
-    setSelectedBill(bill);
-  };
-
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const searchValue = e.target.value.toLowerCase();
-    setSearchTerm(searchValue);
-
-    if (searchValue === "") {
-      setSearchedBillList(billList);
-    } else {
-      const filteredBills = billList.filter((bill) =>
-        bill.title.toLowerCase().includes(searchValue)
-      );
-      setSearchedBillList(filteredBills);
-    }
-  };
-
-  useEffect(() => {
-    if (billList) {
-      setSearchedBillList(billList);
-    }
-  }, [billList]);
+  const {
+    searchTerm,
+    handleSearchChange,
+    dialogIsOpen,
+    toggleDialog,
+    searchedBillList,
+    selectedBill,
+    handleBillSelect,
+  } = useBillsOverview(billList);
 
   return (
     <Card className="flex-grow w-full h-[50rem] rounded-none">
@@ -73,7 +54,7 @@ export default function BillsOverviewSection({
             <FilterIcon />
           </Button>
 
-          <Dialog>
+          <Dialog open={dialogIsOpen} onOpenChange={toggleDialog}>
             <DialogTrigger>
               <Button variant="ghost" size="icon">
                 <AddIcon />
@@ -88,7 +69,7 @@ export default function BillsOverviewSection({
                 </DialogDescription>
               </DialogHeader>
 
-              <BillForm formType={BillFormType.CREATE} />
+              <BillForm formType={BillFormType.CREATE} onSave={toggleDialog} />
             </DialogContent>
           </Dialog>
         </div>
