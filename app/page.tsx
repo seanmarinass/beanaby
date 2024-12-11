@@ -1,5 +1,3 @@
-// import Image from "next/image";
-
 import { auth } from "@/auth";
 import LoginPage from "./login/page";
 import { redirect } from "next/navigation";

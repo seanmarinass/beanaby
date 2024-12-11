@@ -5,11 +5,11 @@ import {
 } from "@/app/api/bills/schemas/bill-form.schema";
 import { BillStatus } from "@/shared/constants";
 import { ZodError } from "zod";
-import { useBillsProvider } from "@/providers/BillsOverviewProvider";
 import { formatToIsoString } from "@/lib/utils";
+import { useBillStore } from "@/stores/useBillStore";
 
 export const useBillForm = () => {
-  const { selectedBill } = useBillsProvider();
+  const { selectedBill } = useBillStore();
 
   const initialFormData: BillFormSchema = {
     title: selectedBill?.title || "",
