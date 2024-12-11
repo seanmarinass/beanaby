@@ -2,11 +2,11 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { BillFormSchema } from "@/app/api/bills/schemas/bill-form.schema";
-import { useBillsProvider } from "@/providers/BillsOverviewProvider";
+import { useBillStore } from "@/stores/useBillStore";
 
 export const useSubmitBill = (formData: BillFormSchema) => {
   const { data } = useSession();
-  const { selectedBill } = useBillsProvider();
+  const { selectedBill } = useBillStore();
 
   const [submitIsLoading, setSubmitIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);

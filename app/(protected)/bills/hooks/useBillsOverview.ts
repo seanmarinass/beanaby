@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { BillDto } from "@/lib/dtos";
-import { useBillsProvider } from "@/providers/BillsOverviewProvider";
+import { useBillStore } from "@/stores/useBillStore";
 
 export const useBillsOverview = (initialBillList: BillDto[]) => {
-  const { setSelectedBill, selectedBill } = useBillsProvider();
+  const { selectedBill, setSelectedBill } = useBillStore();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchedBillList, setSearchedBillList] =
     useState<BillDto[]>(initialBillList);

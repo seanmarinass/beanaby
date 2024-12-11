@@ -6,18 +6,24 @@ import {
   NavigationMenuItem,
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
-import { NavbarContextType, useNavbar } from "@/providers/NavbarProvider";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { NavbarPageType } from "./NavbarPageTypes";
+import { useNavbarStore } from "@/stores/useNavbarStore";
+import { useEffect } from "react";
 
 export default function NavbarNavigationMenu() {
   const pathName = usePathname();
-  const formattedPathName = pathName.substring(1) as NavbarContextType;
+  const formattedPathName = pathName.substring(1) as NavbarPageType;
+  const { currentPage, setCurrentPage } = useNavbarStore();
 
-  const { currentPage, setCurrentPage } = useNavbar();
-  setCurrentPage(formattedPathName);
+  useEffect(() => {
+    if (formattedPathName !== currentPage) {
+      setCurrentPage(formattedPathName);
+    }
+  }, [formattedPathName, currentPage]);
 
-  const handleButtonClick = (page: NavbarContextType) => {
+  const handleButtonClick = (page: NavbarPageType) => {
     setCurrentPage(page);
   };
 
@@ -47,15 +53,12 @@ export default function NavbarNavigationMenu() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          {/* <Link href="/contracts" passHref> */}
           <Button
             disabled={true}
             variant={currentPage === "contracts" ? "default" : "ghost"}
-            // onClick={() => handleButtonClick("Contracts")}
           >
             Contracts (Coming Soon)
           </Button>
-          {/* </Link> */}
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>

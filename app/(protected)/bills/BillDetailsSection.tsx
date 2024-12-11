@@ -3,7 +3,6 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { useBillsProvider } from "@/providers/BillsOverviewProvider";
 import EditIcon from "@/shared/icons/EditIcon";
 import { BillDetailsCard } from "./BillDetailsCard";
 import {
@@ -16,9 +15,10 @@ import {
 } from "@/components/ui/dialog";
 import BillForm, { BillFormType } from "./BillForm";
 import { useBillDetails } from "./hooks/useBillDetails";
+import { useBillStore } from "@/stores/useBillStore";
 
 export default function BillDetailsSection() {
-  const { selectedBill } = useBillsProvider();
+  const { selectedBill } = useBillStore();
   const { dialogIsOpen, toggleDialog } = useBillDetails();
 
   return selectedBill === null ? (
