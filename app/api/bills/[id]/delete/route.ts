@@ -3,7 +3,6 @@ import {
   apiSuccessResponse,
 } from "@/app/api/lib/api-response";
 import prisma from "@/prisma/db";
-import { Prisma } from "@prisma/client";
 
 interface RequestBody {
   email: string;
@@ -48,9 +47,6 @@ export async function DELETE(
       message: "Bill deleted successfully",
     });
   } catch (error) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      return apiErrorResponse(500, `Error deleting bill: ${error.message}`);
-    }
 
     console.error(error);
     return apiErrorResponse(500, "Internal service error");
