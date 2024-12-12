@@ -2,12 +2,11 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useBillStore } from "@/stores/useBillStore";
-import { useBillForm } from "./useBillForm";
+import { BillFormSchema } from "@/app/api/bills/schemas/bill-form.schema";
 
-export const useSubmitBill = () => {
+export const useSubmitBill = (formData: BillFormSchema) => {
   const { data } = useSession();
   const { selectedBill } = useBillStore();
-  const { formData } = useBillForm();
 
   const [submitIsLoading, setSubmitIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -95,11 +94,16 @@ export const useSubmitBill = () => {
     const id = selectedBill._id;
 
     try {
+      const requestBody = {
+        email: data?.user?.email ?? "",
+      };
+
       const response = await fetch(`/api/bills/${id}/delete`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(requestBody),
       });
 
       return handleResponse(response, "Bill delete successfully");
