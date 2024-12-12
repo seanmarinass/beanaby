@@ -3,7 +3,12 @@ import Google from "next-auth/providers/google";
 import prisma from "./prisma/db";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  providers: [Google],
+  providers: [
+    Google({
+      clientId: process.env.AUTH_GOOGLE_ID,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+    }),
+  ],
   callbacks: {
     async signIn({ user }) {
       if (user.email) {
