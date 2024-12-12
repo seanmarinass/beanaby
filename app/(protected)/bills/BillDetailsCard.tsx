@@ -13,8 +13,8 @@ interface BillDetailsCardProps {
 
 export function BillDetailsCard({ selectedBill }: BillDetailsCardProps) {
   return (
-    <CardContent className="flex flex-col gap-[1rem]">
-      <div className="flex flex-col w-fit text-sm self-center">
+    <CardContent className="flex flex-col gap-[1rem] w-full">
+      <div className="flex flex-col w-[50%] text-sm self-center">
         <Card className="flex gap-[2rem] justify-between align-middle items-center rounded-none p-[0.5rem] px-[1.5rem]">
           <span>Due date:</span>
           <span className="font-bold">{selectedBill.dueDateString}</span>

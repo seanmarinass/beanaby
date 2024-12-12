@@ -21,7 +21,7 @@ export default function NavbarNavigationMenu() {
     if (formattedPathName !== currentPage) {
       setCurrentPage(formattedPathName);
     }
-  }, [formattedPathName, currentPage]);
+  }, [formattedPathName, currentPage, setCurrentPage]);
 
   const handleButtonClick = (page: NavbarPageType) => {
     setCurrentPage(page);
@@ -30,7 +30,10 @@ export default function NavbarNavigationMenu() {
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        <NavigationMenuItem>
+        {/**
+         * TODO Uncomment when contracts section is live
+         */}
+        {/* <NavigationMenuItem>
           <Link href="/dashboard" passHref>
             <Button
               variant={currentPage === "dashboard" ? "default" : "ghost"}
@@ -39,7 +42,7 @@ export default function NavbarNavigationMenu() {
               Dashboard
             </Button>
           </Link>
-        </NavigationMenuItem>
+        </NavigationMenuItem> */}
 
         <NavigationMenuItem>
           <Link href="/bills" passHref>
