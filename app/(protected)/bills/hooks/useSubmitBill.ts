@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-import { BillFormSchema } from "@/app/api/bills/schemas/bill-form.schema";
 import { useBillStore } from "@/stores/useBillStore";
+import { useBillForm } from "./useBillForm";
 
-export const useSubmitBill = (formData?: BillFormSchema) => {
+export const useSubmitBill = () => {
   const { data } = useSession();
   const { selectedBill } = useBillStore();
+  const { formData } = useBillForm();
 
   const [submitIsLoading, setSubmitIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -50,7 +51,7 @@ export const useSubmitBill = (formData?: BillFormSchema) => {
     }
   }
 
-  async function updateBill() {
+  async function updateBill(status?: string) {
     setSubmitIsLoading(true);
 
     if (!selectedBill) {
@@ -60,12 +61,19 @@ export const useSubmitBill = (formData?: BillFormSchema) => {
     const id = selectedBill._id;
 
     try {
+      const body = status
+        ? {
+            ...formData,
+            status,
+          }
+        : formData;
+
       const response = await fetch(`/api/bills/${id}/update`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(body),
       });
 
       return handleResponse(response, "Bill updated successfully");

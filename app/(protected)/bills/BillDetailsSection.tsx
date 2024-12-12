@@ -29,6 +29,16 @@ import {
 } from "@/components/ui/alert-dialog";
 import { AlertDialogTitle } from "@radix-ui/react-alert-dialog";
 import { useSubmitBill } from "./hooks/useSubmitBill";
+import { Badge } from "@/components/ui/badge";
+import { getBillStatusColour } from "@/lib/badge-utils";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
+import { BillStatus } from "@/shared/constants";
 
 export default function BillDetailsSection() {
   const { selectedBill } = useBillStore();
@@ -38,7 +48,8 @@ export default function BillDetailsSection() {
     toggleEditDialog,
     toggleDeleteAlert,
   } = useBillDetails();
-  const { deleteBill } = useSubmitBill();
+
+  const { deleteBill, updateBill } = useSubmitBill();
 
   return selectedBill === null ? (
     <Alert>
@@ -48,7 +59,47 @@ export default function BillDetailsSection() {
   ) : (
     <Card className="w-full h-full">
       <CardHeader className="flex flex-row justify-between items-center align-middle">
-        <CardTitle className="text-2xl">{selectedBill.title}</CardTitle>
+        <div className="flex flex-row gap-[0.5rem]">
+          <CardTitle className="text-2xl">{selectedBill.title}</CardTitle>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Badge
+                className={`${getBillStatusColour(
+                  selectedBill.status
+                )} hover:opacity-50 hover:${getBillStatusColour(
+                  selectedBill.status
+                )}`}
+              >
+                {selectedBill.status}
+              </Badge>
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent>
+              <DropdownMenuLabel>Update Status</DropdownMenuLabel>
+              {Object.values(BillStatus).map((status, index) => {
+                const dropdownBadgeColour = getBillStatusColour(status);
+                const isDisabled = status === selectedBill.status;
+
+                return (
+                  <DropdownMenuItem
+                    className="outline-none justify-center align-middle items-center w-full"
+                    key={index}
+                    disabled={isDisabled}
+                  >
+                    <Badge
+                      className={`${dropdownBadgeColour} w-full text-center`}
+                      onClick={() => updateBill(status)}
+                      aria-disabled={isDisabled}
+                    >
+                      {status}
+                    </Badge>
+                  </DropdownMenuItem>
+                );
+              })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
 
         <div className="flex flex-row gap-[0.5rem]">
           <Dialog open={editDialogIsOpen} onOpenChange={toggleEditDialog}>
