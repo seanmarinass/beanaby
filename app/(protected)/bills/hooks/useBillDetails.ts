@@ -1,15 +1,25 @@
 import { useState } from "react";
 
 export function useBillDetails() {
-  const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false);
+  const [editDialogIsOpen, setEditDialogIsOpen] = useState<boolean>(false);
+  const [deleteAlertIsOpen, setDeleteAlertIsOpen] = useState<boolean>(false);
 
-  function toggleDialog() {
-    setDialogIsOpen(!dialogIsOpen);
+  function toggleEditDialog() {
+    setEditDialogIsOpen(!editDialogIsOpen);
+  }
+
+  function toggleDeleteAlert() {
+    setDeleteAlertIsOpen(!deleteAlertIsOpen);
   }
 
   return {
-    dialogIsOpen,
-    setDialogIsOpen,
-    toggleDialog,
+    editDialogIsOpen,
+    deleteAlertIsOpen,
+
+    setEditDialogIsOpen,
+    setDeleteAlertIsOpen,
+
+    toggleEditDialog,
+    toggleDeleteAlert,
   };
 }
