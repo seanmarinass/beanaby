@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { BillFormSchema } from "@/app/api/bills/schemas/bill-form.schema";
 import { useBillStore } from "@/stores/useBillStore";
 
-export const useSubmitBill = (formData: BillFormSchema) => {
+export const useSubmitBill = (formData?: BillFormSchema) => {
   const { data } = useSession();
   const { selectedBill } = useBillStore();
 
@@ -77,11 +77,38 @@ export const useSubmitBill = (formData: BillFormSchema) => {
     }
   }
 
+  async function deleteBill() {
+    setSubmitIsLoading(true);
+
+    if (!selectedBill) {
+      throw new Error("No bill selected");
+    }
+
+    const id = selectedBill._id;
+
+    try {
+      const response = await fetch(`/api/bills/${id}/delete`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      return handleResponse(response, "Bill delete successfully");
+    } catch (err: any) {
+      setError(err.message || "An unkonwn error occured");
+      return false;
+    } finally {
+      setSubmitIsLoading(false);
+    }
+  }
+
   return {
     error,
     successMessage,
     createBill,
     updateBill,
+    deleteBill,
     submitIsLoading,
   };
 };
