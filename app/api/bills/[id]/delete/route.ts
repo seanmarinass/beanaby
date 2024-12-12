@@ -47,7 +47,6 @@ export async function DELETE(
       message: "Bill deleted successfully",
     });
   } catch (error) {
-
     console.error(error);
     return apiErrorResponse(500, "Internal service error");
   }
