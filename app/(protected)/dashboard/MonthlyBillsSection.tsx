@@ -8,6 +8,7 @@ import { auth } from "@/auth";
 export default async function MonthlyBillsSection() {
   const session = await auth();
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
   const billList = await userBillList(session?.user?.email!);
 
   return (

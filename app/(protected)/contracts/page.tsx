@@ -4,8 +4,6 @@ import {
   CardDescription,
   CardTitle,
 } from "@/components/ui/card";
-import ContractCategoriesSection from "./ContractCategoriesSection";
-import YourContractsSection from "./YourContractsSection";
 
 export default function ContractsPage() {
   return (
