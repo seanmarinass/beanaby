@@ -39,6 +39,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
 import { BillStatus } from "@/shared/constants";
+import { useBillForm } from "./hooks/useBillForm";
 
 export default function BillDetailsSection() {
   const { selectedBill } = useBillStore();
@@ -49,7 +50,9 @@ export default function BillDetailsSection() {
     toggleDeleteAlert,
   } = useBillDetails();
 
-  const { deleteBill, updateBill } = useSubmitBill();
+  const { formData } = useBillForm();
+
+  const { deleteBill, updateBill } = useSubmitBill(formData);
 
   return selectedBill === null ? (
     <Alert>
