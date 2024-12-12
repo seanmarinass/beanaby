@@ -87,13 +87,12 @@ export default function BillsOverviewSection({
           </Alert>
         ) : (
           searchedBillList.map((data, index) => {
-            const { status, amount, title, description, dueDateString } = data;
+            const { amount, title, description, dueDateString } = data;
             const isSelected = selectedBill === data;
 
             return (
               <BillListItem
                 key={index}
-                status={status}
                 amount={amount}
                 title={title}
                 description={description}

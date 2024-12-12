@@ -1,10 +1,7 @@
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
-import { BillStatus } from "@/shared/constants";
-import { Badge } from "lucide-react";
 import clsx from "clsx";
 
 interface BillListItemProps {
-  status: BillStatus;
   amount: number;
   title: string;
   description: string;
@@ -15,7 +12,6 @@ interface BillListItemProps {
 }
 
 export default function BillListItem({
-  status,
   amount,
   title,
   description,
@@ -33,20 +29,19 @@ export default function BillListItem({
       )}
       onClick={onClick}
     >
-      <div className="flex justify-between align-middle items-center">
-        <Badge>{status}</Badge>
-        <span>{amount.toFixed(2)}</span>
-      </div>
-
       <CardTitle>{title}</CardTitle>
 
-      <div className="flex flex-col">
-        <CardDescription className={clsx({ "text-white": isSelected })}>
-          {description}
-        </CardDescription>
-        <CardDescription className={clsx({ "text-white": isSelected })}>
-          {dueDateString}
-        </CardDescription>
+      <div className="flex flex-row justify-between">
+        <div className="flex flex-col">
+          <CardDescription className={clsx({ "text-white": isSelected })}>
+            {description}
+          </CardDescription>
+          <CardDescription className={clsx({ "text-white": isSelected })}>
+            {dueDateString}
+          </CardDescription>
+        </div>
+
+        <span className="font-bold">${amount.toFixed(2)}</span>
       </div>
     </Card>
   );
