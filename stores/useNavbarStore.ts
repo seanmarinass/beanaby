@@ -12,8 +12,7 @@ type Action = {
 };
 
 export const useNavbarStore = create<State & Action>((set) => ({
-  // TODO Change back to dashboard when contract section is live
-  currentPage: "bills",
+  currentPage: "dashboard",
 
   setCurrentPage: (currentPage) => set(() => ({ currentPage })),
 }));

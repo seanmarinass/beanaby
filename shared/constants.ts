@@ -16,3 +16,8 @@ export enum BillStatusColour {
   OVERDUE = "bg-red-500",
   DUE = "bg-yellow-500",
 }
+
+export enum TransactionColour {
+  BILL = "#ef4444",
+  CONTRACT = "#22c55e"
+}

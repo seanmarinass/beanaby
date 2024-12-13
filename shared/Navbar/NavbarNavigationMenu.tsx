@@ -30,10 +30,7 @@ export default function NavbarNavigationMenu() {
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        {/**
-         * TODO Uncomment when contracts section is live
-         */}
-        {/* <NavigationMenuItem>
+        <NavigationMenuItem>
           <Link href="/dashboard" passHref>
             <Button
               variant={currentPage === "dashboard" ? "default" : "ghost"}
@@ -42,7 +39,7 @@ export default function NavbarNavigationMenu() {
               Dashboard
             </Button>
           </Link>
-        </NavigationMenuItem> */}
+        </NavigationMenuItem>
 
         <NavigationMenuItem>
           <Link href="/bills" passHref>
