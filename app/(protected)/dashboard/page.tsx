@@ -84,7 +84,7 @@ export default async function DashboardPage() {
   }
 
   return (
-    <section className="grid grid-cols-2 w-full gap-[2rem]">
+    <section className="grid grid-cols-2 w-full gap-[2rem] h-fit">
       <FadeIn tagKey="div" className="grid grid-cols-2 gap-[1rem]">
         <DashboardInfoCard title="Total Bills Amount" amount={3000.29} />
         <DashboardInfoCard title="Total Contracts Amount" amount={400.32} />
@@ -95,9 +95,9 @@ export default async function DashboardPage() {
             <CardDescription>December 2024</CardDescription>
           </CardHeader>
 
-          <CardContent>
+          <div className="max-h-[25rem]">
             <PieChartWithLegend segments={createSegments(transactions)} />
-          </CardContent>
+          </div>
         </Card>
       </FadeIn>
 

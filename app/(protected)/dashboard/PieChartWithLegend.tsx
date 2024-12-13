@@ -54,9 +54,9 @@ export default function PieChartWithLegend({ segments }: PieChartProps) {
   const chartData = createChartData(segments, totalAmount);
 
   return (
-    <ChartContainer config={chartConfig} className="h-full">
+    <ChartContainer config={chartConfig} className="max-h-full">
       <div className="grid grid-cols-3 gap-4 h-full w-full justify-center items-center">
-        <PieChart width={400} height={300} className="col-span-2 h-full">
+        <PieChart width={400} height={300} className="col-span-2">
           <Pie
             data={chartData}
             dataKey="value"
@@ -65,7 +65,7 @@ export default function PieChartWithLegend({ segments }: PieChartProps) {
             cy="50%"
             outerRadius={150}
             innerRadius={100}
-            className="h-full"
+            className="max-h-full"
           >
             {chartData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.color} />
