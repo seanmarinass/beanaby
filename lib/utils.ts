@@ -1,4 +1,5 @@
 import { clsx, type ClassValue } from "clsx";
+import { format } from "d3-format";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -25,4 +26,8 @@ export function formatToIsoString(formattedDate: string): string {
   }
 
   return parsedDate.toISOString();
+}
+
+export function formatMonetaryAmount(amount: number): string {
+  return format(".2f")(amount);
 }

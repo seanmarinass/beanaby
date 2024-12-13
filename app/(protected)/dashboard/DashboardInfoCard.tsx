@@ -4,6 +4,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { formatMonetaryAmount } from "@/lib/utils";
 
 interface DashboardInfoCardProps {
   title: string;
@@ -18,7 +19,9 @@ export default function DashboardInfoCard({
     <Card className="h-full w-full">
       <CardHeader>
         <CardDescription>{title}</CardDescription>
-        <CardTitle className="text-2xl font-bold">${amount}</CardTitle>
+        <CardTitle className="text-2xl font-bold">
+          ${formatMonetaryAmount(amount)}
+        </CardTitle>
       </CardHeader>
     </Card>
   );
