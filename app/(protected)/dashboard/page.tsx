@@ -1,6 +1,5 @@
 "use client";
 
-import FadeIn from "@/components/fadeIn";
 import {
   Card,
   CardContent,
