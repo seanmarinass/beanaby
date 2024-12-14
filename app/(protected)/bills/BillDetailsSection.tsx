@@ -141,8 +141,16 @@ export default function BillDetailsSection() {
 
       <CardFooter className="flex justify-center align-middle items-center">
         <AlertDialog>
-          <AlertDialogTrigger className="w-full">
-            <Button className="w-[50%]">Settle Bill</Button>
+          <AlertDialogTrigger
+            className="w-full"
+            disabled={selectedBill.status === TransactionStatus.SETTLED}
+          >
+            <Button
+              className="w-[50%]"
+              disabled={selectedBill.status === TransactionStatus.SETTLED}
+            >
+              Settle Bill
+            </Button>
           </AlertDialogTrigger>
 
           <AlertDialogContent>
