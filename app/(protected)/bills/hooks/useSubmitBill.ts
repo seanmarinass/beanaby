@@ -66,8 +66,6 @@ export const useSubmitBill = (formData: BillFormSchema) => {
 
     const id = selectedBill.id;
 
-    console.log(`Has status: ${status}`);
-
     try {
       const body = status
         ? {
