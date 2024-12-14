@@ -1,9 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { BillDto } from "@/lib/dtos";
 import { formatToLocaleDateString } from "@/lib/utils";
 
@@ -57,11 +52,6 @@ export function BillDetailsCard({ selectedBill }: BillDetailsCardProps) {
             {formatToLocaleDateString(selectedBill.createdDateString)}
           </span>
         </Card>
-      </div>
-
-      <div>
-        <CardTitle>Notes</CardTitle>
-        <CardDescription>{selectedBill.description}</CardDescription>
       </div>
     </CardContent>
   );
