@@ -1,4 +1,4 @@
-import { BillStatus } from "@/shared/constants";
+import { TransactionStatus } from "@/shared/constants";
 import { Card, CardDescription, CardTitle } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { getBillStatusColour } from "@/lib/badge-utils";
@@ -9,8 +9,8 @@ export interface BillCardProps {
   amount: number;
   dueDateString: string;
 
-  billType: string;
-  status: BillStatus;
+  category: string;
+  status: TransactionStatus;
 }
 
 export default function BillCard({
@@ -18,7 +18,7 @@ export default function BillCard({
   description,
   amount,
   dueDateString,
-  billType,
+  category,
   status,
 }: BillCardProps) {
   const badgeColour = getBillStatusColour(status);
@@ -26,7 +26,7 @@ export default function BillCard({
   return (
     <Card className="p-[1rem] flex flex-col gap-[0.5rem]">
       <div className="flex w-full justify-between">
-        <Badge className="bg-slate-500">{billType}</Badge>
+        <Badge className="bg-slate-500">{category}</Badge>
         <Badge
           className={`${badgeColour} w-fit items-center align-center justify-center flex`}
         >

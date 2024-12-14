@@ -1,8 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
   engineType = "node-api"
 }
-
 
 datasource db {
   provider = "mongodb"
@@ -14,9 +13,9 @@ model Bill {
   title                  String
   amount                 Float
   description            String
-  billType               String
+  category               String
   status                 String
-  dueDate                String
+  isoDueDateString       String
   recipientAddress       String
   recipientName          String
   recipientBankName      String

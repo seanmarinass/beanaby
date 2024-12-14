@@ -19,14 +19,29 @@ import {
 } from "@/components/ui/dialog";
 import BillForm, { BillFormType } from "./BillForm";
 import { useBillsOverview } from "./hooks/useBillsOverview";
+import useSWR from "swr";
+import { useSession } from "next-auth/react";
+import { swrConfig } from "@/swr.config";
+import { useBillStore } from "@/stores/useBillStore";
 
-interface BillsOverviewSectionProps {
-  billList: BillDto[];
-}
+export default function BillsOverviewSection() {
+  const { data } = useSession();
+  const email = data?.user?.email;
+  const url = email ? `/api/users/${email}/bills` : null;
 
-export default function BillsOverviewSection({
-  billList,
-}: BillsOverviewSectionProps) {
+  const {
+    data: userBillList,
+    isLoading,
+    error,
+  } = useSWR<BillDto[]>(url, {
+    ...swrConfig,
+    onSuccess: (data: BillDto[] | null) => {
+      if (data) {
+        useBillStore.getState().setBillList(data);
+      }
+    },
+  });
+
   const {
     searchTerm,
     handleSearchChange,
@@ -35,7 +50,15 @@ export default function BillsOverviewSection({
     searchedBillList,
     selectedBill,
     handleBillSelect,
-  } = useBillsOverview(billList);
+  } = useBillsOverview();
+
+  if (isLoading) {
+    return <Alert>Fetching user bill list</Alert>;
+  }
+
+  if (error || !userBillList) {
+    return <Alert>Error fetching bill list</Alert>;
+  }
 
   return (
     <Card className="flex-grow w-full h-[50rem] rounded-none">
@@ -81,13 +104,13 @@ export default function BillsOverviewSection({
             <AlertTitle>No bills found</AlertTitle>
           </Alert>
         ) : searchedBillList.length === 0 ? (
-          <Alert>
+          <Alert className="flex flex-col justify-center align-middle items-center">
             <AlertTitle>Bill list is empty</AlertTitle>
             <AlertDescription>Add a new bill to continue</AlertDescription>
           </Alert>
         ) : (
           searchedBillList.map((data, index) => {
-            const { amount, title, description, dueDateString } = data;
+            const { amount, title, description, localeDueDateString } = data;
             const isSelected = selectedBill === data;
 
             return (
@@ -96,7 +119,7 @@ export default function BillsOverviewSection({
                 amount={amount}
                 title={title}
                 description={description}
-                dueDateString={dueDateString}
+                dueDateString={localeDueDateString}
                 isSelected={isSelected}
                 onClick={() => handleBillSelect(data)}
               />

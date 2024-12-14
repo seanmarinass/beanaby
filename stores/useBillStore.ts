@@ -1,5 +1,6 @@
 "use client";
 import { BillDto } from "@/lib/dtos";
+import { UserTransaction } from "@/lib/types";
 import { create } from "zustand";
 
 type State = {

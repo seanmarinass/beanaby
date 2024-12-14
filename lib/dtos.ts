@@ -1,7 +1,7 @@
-import { BillStatus } from "@/shared/constants";
+import { TransactionStatus } from "@/shared/constants";
 
 export interface BillDto {
-  _id: string
+  id: string;
   title: string;
   description: string;
   amount: number;
@@ -10,9 +10,9 @@ export interface BillDto {
   recipientBankName: string;
   recipientBankAccountNo: string;
 
-  billType: string;
-  status: BillStatus;
+  category: string;
+  status: TransactionStatus;
 
-  dueDateString: string;
+  localeDueDateString: string;
   createdDateString: string;
 }

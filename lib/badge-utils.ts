@@ -1,10 +1,12 @@
-import { BillStatus, BillStatusColour } from "@/shared/constants";
+import { TransactionStatus, BillStatusColour } from "@/shared/constants";
 
-export function getBillStatusColour(status: BillStatus): BillStatusColour {
+export function getBillStatusColour(
+  status: TransactionStatus
+): BillStatusColour {
   switch (status) {
-    case BillStatus.SETTLED:
+    case TransactionStatus.SETTLED:
       return BillStatusColour.SETTLED;
-    case BillStatus.OVERDUE:
+    case TransactionStatus.OVERDUE:
       return BillStatusColour.OVERDUE;
     default:
       return BillStatusColour.DUE;

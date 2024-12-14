@@ -62,11 +62,11 @@ export default function BillForm({ formType, onClose }: BillFormProps) {
 
       <div className="flex gap-[1rem] w-full">
         <InputField
-          label="Bill Type"
-          name="billType"
-          value={formData.billType}
+          label="Bill Category"
+          name="category"
+          value={formData.category}
           onChange={handleChange}
-          error={validationErrors.billType}
+          error={validationErrors.category}
           placeholder="Subscription, rent etc..."
         />
         <InputField
@@ -81,10 +81,10 @@ export default function BillForm({ formType, onClose }: BillFormProps) {
 
       <InputField
         label="Due Date"
-        name="dueDate"
-        value={formData.dueDate}
+        name="isoDueDateString"
+        value={formData.isoDueDateString}
         onChange={handleChange}
-        error={validationErrors.dueDate}
+        error={validationErrors.isoDueDateString}
         placeholder="Due Date (ISO format)"
       />
       <InputField
