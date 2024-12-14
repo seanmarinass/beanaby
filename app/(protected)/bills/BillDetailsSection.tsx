@@ -2,7 +2,13 @@
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import EditIcon from "@/shared/icons/EditIcon";
 import { BillDetailsCard } from "./BillDetailsCard";
 import {
@@ -31,15 +37,11 @@ import { AlertDialogTitle } from "@radix-ui/react-alert-dialog";
 import { useSubmitBill } from "./hooks/useSubmitBill";
 import { Badge } from "@/components/ui/badge";
 import { getBillStatusColour } from "@/lib/badge-utils";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
+
 import { TransactionStatus } from "@/shared/constants";
 import { useBillForm } from "./hooks/useBillForm";
+import { formatMonetaryAmount } from "@/lib/utils";
+import InputField from "@/components/ui/input-field";
 
 export default function BillDetailsSection() {
   const { selectedBill } = useBillStore();
@@ -62,46 +64,23 @@ export default function BillDetailsSection() {
   ) : (
     <Card className="w-full h-full">
       <CardHeader className="flex flex-row justify-between items-center align-middle">
-        <div className="flex flex-row gap-[0.5rem]">
-          <CardTitle className="text-2xl">{selectedBill.title}</CardTitle>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger>
+        <div className="flex flex-col">
+          <div className="flex flex-row gap-[0.5rem] items-center">
+            <CardTitle className="text-2xl">{selectedBill.title}</CardTitle>
+            <span>
               <Badge
                 className={`${getBillStatusColour(
                   selectedBill.status
-                )} hover:opacity-50 hover:${getBillStatusColour(
+                )} w-full text-center hover:${getBillStatusColour(
                   selectedBill.status
                 )}`}
+                onClick={() => updateBill(selectedBill.status)}
               >
                 {selectedBill.status}
               </Badge>
-            </DropdownMenuTrigger>
-
-            <DropdownMenuContent>
-              <DropdownMenuLabel>Update Status</DropdownMenuLabel>
-              {Object.values(TransactionStatus).map((status, index) => {
-                const dropdownBadgeColour = getBillStatusColour(status);
-                const isDisabled = status === selectedBill.status;
-
-                return (
-                  <DropdownMenuItem
-                    className="outline-none justify-center align-middle items-center w-full"
-                    key={index}
-                    disabled={isDisabled}
-                  >
-                    <Badge
-                      className={`${dropdownBadgeColour} w-full text-center`}
-                      onClick={() => updateBill(status)}
-                      aria-disabled={isDisabled}
-                    >
-                      {status}
-                    </Badge>
-                  </DropdownMenuItem>
-                );
-              })}
-            </DropdownMenuContent>
-          </DropdownMenu>
+            </span>
+          </div>
+          <CardDescription>{selectedBill.description}</CardDescription>
         </div>
 
         <div className="flex flex-row gap-[0.5rem]">
@@ -159,6 +138,42 @@ export default function BillDetailsSection() {
       </CardHeader>
 
       <BillDetailsCard selectedBill={selectedBill} />
+
+      <CardFooter className="flex justify-center align-middle items-center">
+        <AlertDialog>
+          <AlertDialogTrigger className="w-full">
+            <Button className="w-[50%]">Settle Bill</Button>
+          </AlertDialogTrigger>
+
+          <AlertDialogContent>
+            <AlertTitle>
+              You are settling {selectedBill.title} with a total of $
+              {formatMonetaryAmount(selectedBill.amount)}
+            </AlertTitle>
+
+            <div className="flex flex-col">
+              {
+                // TODO: Implement adhoc function
+              }
+              <InputField
+                label="Optional: Enter an additional amount if you'd like to pay more"
+                name="oneTimeAmount"
+                value={0}
+                onChange={() => {}}
+                placeholder="Enter extra amount"
+              />
+            </div>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => updateBill(TransactionStatus.SETTLED)}
+              >
+                Confirm Payment
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </CardFooter>
     </Card>
   );
 }

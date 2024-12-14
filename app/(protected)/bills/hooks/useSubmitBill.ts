@@ -5,14 +5,14 @@ import { useBillStore } from "@/stores/useBillStore";
 import { BillFormSchema } from "@/app/api/bills/schemas/bill-form.schema";
 import useSWR from "swr";
 import { swrConfig } from "@/swr.config";
+import { TransactionStatus } from "@/shared/constants";
 
 export const useSubmitBill = (formData: BillFormSchema) => {
   const { data } = useSession();
-  const { setSelectedBill } = useBillStore();
   const email = data?.user?.email;
   const url = email ? `/api/users/${email}/bills` : null;
   const { mutate } = useSWR(url, swrConfig);
-  const { selectedBill } = useBillStore();
+  const { selectedBill, setSelectedBill } = useBillStore();
 
   const [submitIsLoading, setSubmitIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -57,7 +57,7 @@ export const useSubmitBill = (formData: BillFormSchema) => {
     }
   }
 
-  async function updateBill(status?: string) {
+  async function updateBill(status?: TransactionStatus) {
     setSubmitIsLoading(true);
 
     if (!selectedBill) {
@@ -65,6 +65,8 @@ export const useSubmitBill = (formData: BillFormSchema) => {
     }
 
     const id = selectedBill.id;
+
+    console.log(`Has status: ${status}`);
 
     try {
       const body = status
@@ -83,6 +85,9 @@ export const useSubmitBill = (formData: BillFormSchema) => {
       });
 
       mutate();
+      if (status) {
+        setSelectedBill({ ...selectedBill, status });
+      }
       return handleResponse(response, "Bill updated successfully");
     } catch (err: any) {
       setError(err.message || "An unknown error occurred");

@@ -58,11 +58,6 @@ export function BillDetailsCard({ selectedBill }: BillDetailsCardProps) {
           </span>
         </Card>
       </div>
-
-      <div>
-        <CardTitle>Notes</CardTitle>
-        <CardDescription>{selectedBill.description}</CardDescription>
-      </div>
     </CardContent>
   );
 }
