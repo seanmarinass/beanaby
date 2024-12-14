@@ -12,15 +12,15 @@ export const billFormSchema = z.object({
   description: z
     .string()
     .max(500, "Description must be 500 characters or fewer"),
-  billType: z
+  category: z
     .string()
-    .min(1, "Bill type is required")
-    .max(100, "Bill type must be 100 characters or fewer"),
+    .min(1, "Category is required")
+    .max(100, "Category must be 100 characters or fewer"),
   status: z
     .string()
     .min(1, "Status is required")
     .max(50, "Status must be 50 characters or fewer"),
-  dueDate: z.string().refine((val) => !isNaN(Date.parse(val)), {
+  isoDueDateString: z.string().refine((val) => !isNaN(Date.parse(val)), {
     message: "Invalid date format",
   }),
   recipientAddress: z

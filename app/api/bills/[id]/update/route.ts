@@ -28,9 +28,9 @@ export async function PATCH(
         title: formData.title,
         amount: formData.amount,
         description: formData.description,
-        billType: formData.billType,
+        category: formData.category,
         status: formData.status,
-        dueDate: formData.dueDate,
+        isoDueDateString: formData.isoDueDateString,
         recipientAddress: formData.recipientAddress,
         recipientName: formData.recipientName,
         recipientBankName: formData.recipientBankName,
@@ -45,7 +45,7 @@ export async function PATCH(
     });
   } catch (error) {
     if (error instanceof ZodError) {
-      console.log(error.errors);
+      console.error(error.errors);
       return apiErrorResponse(400, "Validation error", error.errors);
     }
 

@@ -38,7 +38,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
-import { BillStatus } from "@/shared/constants";
+import { TransactionStatus } from "@/shared/constants";
 import { useBillForm } from "./hooks/useBillForm";
 
 export default function BillDetailsSection() {
@@ -80,7 +80,7 @@ export default function BillDetailsSection() {
 
             <DropdownMenuContent>
               <DropdownMenuLabel>Update Status</DropdownMenuLabel>
-              {Object.values(BillStatus).map((status, index) => {
+              {Object.values(TransactionStatus).map((status, index) => {
                 const dropdownBadgeColour = getBillStatusColour(status);
                 const isDisabled = status === selectedBill.status;
 

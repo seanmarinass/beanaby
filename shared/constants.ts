@@ -5,7 +5,7 @@ export enum ContractStatus {
   EXPIRED = "Expired",
 }
 
-export enum BillStatus {
+export enum TransactionStatus {
   SETTLED = "Settled",
   DUE = "Due",
   OVERDUE = "Overdue",

@@ -3,7 +3,7 @@ import {
   billFormSchema,
   BillFormSchema,
 } from "@/app/api/bills/schemas/bill-form.schema";
-import { BillStatus } from "@/shared/constants";
+import { TransactionStatus } from "@/shared/constants";
 import { ZodError } from "zod";
 import { formatToIsoString } from "@/lib/utils";
 import { useBillStore } from "@/stores/useBillStore";
@@ -15,10 +15,10 @@ export const useBillForm = () => {
     title: selectedBill?.title || "",
     amount: selectedBill?.amount || 0,
     description: selectedBill?.description || "",
-    billType: selectedBill?.billType || "",
-    status: selectedBill?.status || BillStatus.DUE,
-    dueDate: selectedBill?.dueDateString
-      ? formatToIsoString(selectedBill.dueDateString)
+    category: selectedBill?.category || "",
+    status: selectedBill?.status || TransactionStatus.DUE,
+    isoDueDateString: selectedBill?.localeDueDateString
+      ? formatToIsoString(selectedBill.localeDueDateString)
       : "",
     recipientName: selectedBill?.recipientName || "",
     recipientAddress: selectedBill?.recipientAddress || "",

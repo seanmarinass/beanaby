@@ -1,18 +1,30 @@
 import { SWRConfiguration } from "swr";
 
-export const fetcher = async (url: string) => {
-  const res = await fetch(url);
+export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+
+export const fetcher = async <T>(
+  url: string,
+  method: HttpMethod = "GET",
+  body?: any
+): Promise<T> => {
+  const res = await fetch(url, {
+    method,
+    body: body ? JSON.stringify(body) : undefined,
+  });
+
   if (!res.ok) {
-    throw new Error(`HTTP error! status: ${res.status}`);
+    const errorMessage = `HTTP error! status: ${res.status}`;
+    throw new Error(errorMessage);
   }
 
-  return res.json();
+  const data = await res.json();
+  return data;
 };
 export const swrConfig: SWRConfiguration = {
   revalidateOnFocus: false,
   dedupingInterval: 60000,
-  fetcher: fetcher, // Define the default fetcher (you can use your custom fetcher)
-  errorRetryCount: 3, // Retry failed requests up to 3 times
-  errorRetryInterval: 5000, // Retry every 5 seconds
-  loadingTimeout: 10000, // Timeout for loading state (in milliseconds)
+  fetcher: fetcher,
+  errorRetryCount: 3,
+  errorRetryInterval: 5000,
+  loadingTimeout: 10000,
 };

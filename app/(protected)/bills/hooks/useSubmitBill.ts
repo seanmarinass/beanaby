@@ -3,9 +3,15 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useBillStore } from "@/stores/useBillStore";
 import { BillFormSchema } from "@/app/api/bills/schemas/bill-form.schema";
+import useSWR from "swr";
+import { swrConfig } from "@/swr.config";
 
 export const useSubmitBill = (formData: BillFormSchema) => {
   const { data } = useSession();
+  const { setSelectedBill } = useBillStore();
+  const email = data?.user?.email;
+  const url = email ? `/api/users/${email}/bills` : null;
+  const { mutate } = useSWR(url, swrConfig);
   const { selectedBill } = useBillStore();
 
   const [submitIsLoading, setSubmitIsLoading] = useState<boolean>(false);
@@ -41,6 +47,7 @@ export const useSubmitBill = (formData: BillFormSchema) => {
         body: JSON.stringify(formData),
       });
 
+      mutate();
       return handleResponse(response, "Bill created successfully");
     } catch (err: any) {
       setError(err.message || "An unknown error occurred");
@@ -57,7 +64,7 @@ export const useSubmitBill = (formData: BillFormSchema) => {
       throw new Error("No bill selected");
     }
 
-    const id = selectedBill._id;
+    const id = selectedBill.id;
 
     try {
       const body = status
@@ -75,6 +82,7 @@ export const useSubmitBill = (formData: BillFormSchema) => {
         body: JSON.stringify(body),
       });
 
+      mutate();
       return handleResponse(response, "Bill updated successfully");
     } catch (err: any) {
       setError(err.message || "An unknown error occurred");
@@ -91,7 +99,7 @@ export const useSubmitBill = (formData: BillFormSchema) => {
       throw new Error("No bill selected");
     }
 
-    const id = selectedBill._id;
+    const id = selectedBill.id;
 
     try {
       const requestBody = {
@@ -106,6 +114,8 @@ export const useSubmitBill = (formData: BillFormSchema) => {
         body: JSON.stringify(requestBody),
       });
 
+      mutate();
+      setSelectedBill(null);
       return handleResponse(response, "Bill delete successfully");
     } catch (err: any) {
       setError(err.message || "An unkonwn error occured");

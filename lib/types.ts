@@ -1,9 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+export type TransactionType = "bill" | "contract";
 
-interface UserTransaction {
-  date: string;
+export interface UserTransaction {
+  localeDueDateString: string;
   title: string;
   description: string;
   amount: number;
-  type: string;
+  type: TransactionType;
+  category: string;
 }

@@ -16,6 +16,7 @@ import { useSession } from "next-auth/react";
 import useSWR from "swr";
 import { swrConfig } from "@/swr.config";
 import { Alert } from "@/components/ui/alert";
+import { UserTransaction } from "@/lib/types";
 
 function createSegments(transactions: UserTransaction[]): {
   segments: PieChartSegment[];
@@ -115,7 +116,7 @@ export default function DashboardPage() {
                 className="grid grid-cols-3 py-[1rem] px-[0.5rem] shadow-none border-none"
               >
                 <CardDescription className="font-medium">
-                  {transaction.date}
+                  {transaction.localeDueDateString}
                 </CardDescription>
                 <CardTitle className="font-semibold">
                   {transaction.title}
