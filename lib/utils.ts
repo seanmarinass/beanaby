@@ -62,3 +62,12 @@ export function determineTransactionStatus(
 
   return TransactionStatus.OVERDUE;
 }
+
+export function getCurrentMonthAndYear() {
+  const currentDate = new Date();
+  const options: Intl.DateTimeFormatOptions = {
+    month: "long",
+    year: "numeric",
+  };
+  return currentDate.toLocaleDateString("en-US", options);
+}

@@ -16,6 +16,7 @@ export function billDocumentToUserTransactionTransformer(
     amount: bill.amount,
     type: "bill",
     category: bill.category,
+    status: determineTransactionStatus(bill.isoDueDateString, bill.status),
   };
 }
 

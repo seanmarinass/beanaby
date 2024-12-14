@@ -1,3 +1,5 @@
+import { TransactionStatus } from "@/shared/constants";
+
 export type TransactionType = "bill" | "contract";
 
 export interface UserTransaction {
@@ -7,4 +9,5 @@ export interface UserTransaction {
   amount: number;
   type: TransactionType;
   category: string;
+  status: TransactionStatus;
 }
